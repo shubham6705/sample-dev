@@ -22,42 +22,6 @@ class RegisterAPIView(APIView):
         return Response(serializer.data)
 
 
-
-# class LoginAPIView(APIView):
-#     serializer = LoginSerializer
-#     permission_classes = (AllowAny,)
-
-#     def post(self, request):
-#         # try:
-#         serializer = self.serializer(data=request.data)
-#         login_type = request.GET.get('loginType')
-#         if serializer.is_valid(raise_exception=True):
-#             email = serializer.data.get('email')
-#             mobile_num = serializer.data.get('phoneNumber')
-#             if email:
-#                 user_data = User.objects.filter(email=email).values('username').last()
-#                 user_name = user_data.get('username') if user_data else None
-#             else:
-#                 user_name = mobile_num
-#             password = serializer.data.get('password')
-
-#             if user_name:
-#                 user = authenticate(username=user_name, password=password)
-#                 if user and user.id:
-#                     user_service = UserService()
-#                     role_validation = user_service.validate_role(user, login_type)
-#                     if role_validation == 2 or not login_type:
-#                         return Response({"status": False, "message": "You are not allowed to login with this role"},
-#                                         status=status.HTTP_400_BAD_REQUEST)
-#                     elif role_validation == 0:
-#                         user_service.add_user_role(user, login_type)
-#                     data = user_service.get_login_creds(user, login_type)
-#                     return Response({'data': data, 'status': True})
-
-#         return Response({"status": False, "message": "please check your credentials"},
-#                         status=status.HTTP_400_BAD_REQUEST)
-
-
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
